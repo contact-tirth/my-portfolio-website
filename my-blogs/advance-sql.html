@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&family=Courgette&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #B5E2FA; /* Darker background color */
+            color: #EE2E31; /* Bright white text for contrast */
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #383838; /* White text color for the title */
+            margin-top: 40px;
+            font-family: 'Garamond', cursive; /* Cursive font for the title */
+        }
+        article {
+            background-color: #F9F7F3; /* Darker background for the article box */
+            margin: 30px auto;
+            padding: 30px;
+            max-width: 900px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            font-family: 'brush script';
+        }
+        h2 {
+            color: #383838; /* White text color for subheadings */
+            font-family: 'courier'; /* Cursive font for the headings */
+        }
+        p {
+            line-height: 1.8;
+            font-size: 1.1em;
+            color: #071E22; /* Lighter white text for the paragraph */
+            font-family: 'helvetica';
+        }
+        small {
+            color: #4F6367; /* Slightly lighter gray for the date */
+            font-size: 0.9em;
+            display: block;
+            margin-bottom: 15px;
+        }
+        pre {
+            background-color: #2d2d2d;
+            color: #ffffff;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 1em;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1><b>Advanced SQL Queries you must know</b></h1>
+
+    <article>
+        <h2>Advanced SQL Queries you must know</h2>
+        <small>Published on: December 24, 2024</small>
+        <p>
+            > The Top 8 Advanced SQL commands for Data Analysis and Data Engineering! <br>
+            <br>
+            If you are into Data Analysis for a while now, you must be already aware of the basic commands such as SELECT,INSERT, UPDATE and DELETE etc, though they may be the most used it is also good to know the below queries for some deep diving into data.<br>
+            <br>
+            <b>1. Window Functions: </b><br>
+            Window functions are used for calculations across a set of rows related to the current row. Let’s consider an example where we calculate the running total of sales using the SUM( ) function with the OVER( ) clause.Let us imagine we have a sales data table ‘Sales_Data’ that records the sales amounts on various dates. We want to calculate the running total of sales for each date, which means the total sales up to and including each date.
+        </p>
+            <pre>SELECT date,sales,SUM(sales) OVER (ORDER BY date) AS running_total FROM sales_data;</pre>
+        <p>   
+            This query provides a running total of sales over time, making it easy to track cumulative sales growth.
+        </p>
+            <pre>Output:
+            date |sales |running_total
+            2023–01–01 | 100 | 100
+            2023–01–02 | 150 | 250
+            2023–01–03 | 200 | 450
+            2023–01–04 | 250 | 700
+            </pre>
+        <p>
+            Window functions can be used for various tasks such as calculating running totals, moving averages, ranks, and more, without collapsing the result set into a single row per group.
+        </p>
+
+        <p>
+            <b> 2. Common Table Expressions (CTEs): </b><br>
+            CTEs give a way to create temporary result sets that can be referenced within a query. They improve <br> readability and simplify complex queries. Here’s how we can use a CTE to calculate the total revenue for <br>
+            each product category.<br>
+        </p>
+
+        <pre>WITH category_revenue AS (
+        SELECT category, SUM(revenue) AS total_revenue
+        FROM sales
+        GROUP BY category
+        )
+        SELECT * FROM category_revenue;
+        </pre>
+
+        <p>
+            The query defines a CTE named ‘category_revenue’. It calculates the total revenue for each category by summing
+            up the revenue from the sales table and grouping the results by the category column.The main query selects all columns from the ‘category_revenue’ CTE, effectively displaying the calculated total revenue for each category.
+        </p>
+
+        <pre>Output:
+            category |total_revenue 
+            A |5000
+            B |7000
+            C|4500
+        </pre>
+
+        <p>
+        <b> 3. Recursive Queries:</b><br>
+            Recursive queries enable travel of hierarchical data structures like organisational charts or bill of materials. Suppose we have a table representing employee relationships, and we want to find all the subordinates of a given manager.
+        </p>
+        
+        <pre>WITH RECURSIVE subordinates AS (
+        SELECT employee_id, name, manager_id
+        FROM employees
+        WHERE manager_id = ‘manager_id_of_interest’
+        UNION ALL
+        SELECT e.employee_id, e.name, e.manager_id
+        FROM employees e
+        JOIN subordinates s ON e.manager_id = s.employee_id
+        )
+        SELECT * FROM subordinates;
+        </pre>
+        
+        <p>
+            This recursive CTE finds all employees who report directly or indirectly to a specific manager ‘manager_id_of_interest’. It starts with employees directly reporting to the manager and then recursively finds their subordinates, building the hierarchy.
+        </p>
+        
+        <pre>Output:
+        employee_id |name |manager_id
+        2|Alice |manager_id_of_interest
+        3|Bob |2
+        4|Charlie |3
+        </pre>
+        
+        <p>
+        <b>4. Pivot Tables:</b><br>
+        Pivot tables transform rows into columns, summarising data in a tabular format. Let’s say we have a table containing sales data, and we want to pivot the data to display total sales for each product in different months.
+        </p>
+
+        <pre>SELECT product,
+            SUM(CASE WHEN month = ‘Jan’ THEN sales ELSE 0 END) AS Jan,
+            SUM(CASE WHEN month = ‘Feb’ THEN sales ELSE 0 END) AS Feb,
+            SUM(CASE WHEN month = ‘Mar’ THEN sales ELSE 0 END) AS Mar
+            FROM sales_data
+            GROUP BY product;
+        </pre>
+
+        <p>
+            This query aggregates sales data for each product by month using conditional aggregation. It sums the sales for January, February, and March separately for each product, resulting in a table showing total sales per product for these months.
+        </p>
+
+        <pre>Output:
+        Product | Jan | Feb | Mar
+        Product A | 100 | 200 | 150
+        Product B | 80 | 190 | 220
+        Product C | 60 | 140 | 130
+        </pre>
+
+        <p>
+            <b>5.Analytic Functions</b><br>
+            Analytic functions compute aggregate values based on a group of rows. For example, we can use the ROW_NUMBER( ) function to assign a unique row number to each record in a dataset.
+        </p>
+
+        <pre>SELECT customer_id, order_id,
+        ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_date) AS order_rank
+        FROM orders;
+        </pre>
+
+        <p>
+            This query assigns a unique rank to each order per customer based on the order date using the ROW_NUMBER( ) window function. The result shows the sequence of orders placed by each customer.
+        </p>
+
+        <pre>Output:
+        customer_id | order_id | order_rank
+        1 | 101 | 1
+        1 | 102 | 2
+        2 | 201 | 1
+        2 | 202 | 2
+        2 | 203 | 3            
+        </pre>
+
+        <p><b>6. Conditional Aggregation:</b><br>
+        Conditional aggregation involves applying aggregate functions conditionally based on specified criteria. For example, we might want to calculate the average sales amount only for orders placed by repeat customers.
+        <p>
+
+        <pre>SELECT customer_id,
+        AVG(CASE WHEN order_count > 1 THEN order_total ELSE NULL END) AS avg_sales_repeat_customers
+        FROM (
+        SELECT customer_id, COUNT(*) AS order_count, SUM(order_total) AS order_total
+        FROM orders
+        GROUP BY customer_id
+        ) AS customer_orders;
+        </pre>
+
+        <p>
+            This query calculates the average order total for customers who have placed more than one order. It aggregates the order count and total order amount for each customer, then computes the average for repeat customers.
+        </p>
+
+        <pre>Output:
+        customer_id | avg_sales_repeat_customers
+        1 | 250
+        2 | 150
+        3 | 300            
+        </pre>
+
+        <p><b>7. Merge Statements</b><br>
+        Merge statements (also known as UPSERT or ON DUPLICATE KEY UPDATE) enable us to insert, update, or delete records in a target table based on the results of a join with a source table. Let’s say we want to synchronise two tables containing customer data.</p>
+
+        <pre>MERGE INTO customers_target 
+        USING customers_source s
+        ON t.customer_id = s.customer_id
+        WHEN MATCHED THEN
+        UPDATE SET t.name = s.name, t.email = s.email
+        WHEN NOT MATCHED THEN
+        INSERT (customer_id, name, email) VALUES (s.customer_id, s.name, s.email);</pre>
+
+        <pre>customers_target (before merge):
+
+        customer_id | name | email
+        1 | John Doe | john@example.com
+        2 | Jane Smith | jane@example.com
+
+        customers_source
+
+        customer_id | name | email
+        2 | Jane Johnson | jane.j@example.com
+        3 | Alice Brown | alice@example.com
+
+        Output:
+
+        customers_target (after merge):
+
+        customer_id | name | email
+        1 | John Doe | john@example.com
+        2 | Jane Johnson | jane.j@example.com
+        3 | Alice Brown | alice@example.com
+        </pre>
+
+        <p><b>8. Grouping Sets</b><br>
+        Grouping sets allow for the aggregation of data at multiple levels of granularity in a single query. Let’s say we want to calculate the total sales revenue by month and year.            
+        </p>
+
+        <pre>SELECT YEAR(order_date) AS year, MONTH(order_date) AS month, SUM(sales_amount) AS total_revenue
+        FROM sales 
+        GROUP BY GROUPING SETS ((YEAR(order_date), MONTH(order_date)), YEAR(order_date), MONTH(order_date));
+        </pre>
+
+        <pre>Example Data in the sales table:
+
+        order_date | sales_amount
+        2023–01–15 | 1000
+        2023–01–20 | 1500
+        2023–02–10 | 2000
+        2023–03–05 | 2500
+        2024–01–10 | 3000
+        2024–01–20 | 3500
+        2024–02–25 | 4000
+
+        Output:
+
+        year | month | total_revenue
+        2023 | 1 | 2500
+        2023 | 2 | 2000
+        2023 | 3 | 2500
+        2024 | 1 | 6500
+        2024 | 2 | 4000
+        2023 | NULL | 7000
+        2024 | NULL | 10500
+        NULL | 1 | 9000
+        NULL | 2 | 6000
+        NULL | 3 | 2500
+        </pre>
+
+        <p> 
+            The query groups sales data by year and month, by year only, and by month only using GROUPING SETS. This results in subtotals for each month of each year, overall totals for each year, and overall totals for each month across all years.<br>
+            <br> 
+            Using these 8 advanced SQL techniques, you can solve complex data problems with ease and accuracy. Whether you’re a data analyst, engineer, or scientist, improving your SQL skills will make you much better at handling data.<br>
+            <br>
+            Happy Data Analysis!
+        </p>
+    </article>
+</body>
+</html>
