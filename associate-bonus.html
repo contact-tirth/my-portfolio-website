@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Description</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #ADD8E6, #2a5298);
+            color: #f9f9f9;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        /* Container Styling */
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #ffffff;
+            color: #333;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Headings */
+        h1 {
+            color: #2a5298;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #1e3c72;
+            font-size: 1.8em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* List Styling */
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Links */
+        a {
+            color: #1e90ff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #ff6f61;
+        }
+
+        /* Footer Styling */
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #666;
+            text-align: center;
+        }
+
+        /* Button for links */
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            background: #2a5298;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .button:hover {
+            background: #1e90ff;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Associate Bonus Automation</h1>
+        <p><strong>Overview:</strong> I have created SSIS pipeline which contains almost around 38 SSIS packages which runs togather to calculate the bonus for each associates. It was calculating bonus for almost around 1500 employees and this process runs every after 40 mins to calculate the bonus live through SQL Agent Job and whatever calcualted bonus comes in the table user can see those bonus in UI.(Although UI part is not developed by me.) It involved more than 30 tables out of which few are filled automated through SSIS package and it involved large amount of store procedures to calculate the bonus which involve business logic mentioned by client.</p>
+
+        <h2>Technologies Used</h2>
+        <ul>
+            <li>SSIS</li>
+            <li>SQL</li>
+            <li>SQL Agent</li>
+        </ul>
+
+        <h2>Features</h2>
+        <ul>
+            <li>Calculate Associate Bonus Live and Show it to UI</li>
+            <li>Fully Automated Calculation. (No Human Involvment)</li>
+            <li>Correction in the bonus and re run the past bonus data to recalculate if there is any issue in the bonus amount.</li>
+        </ul>
+
+        <h2>Challenges Faced</h2>
+        <p>Performance</p>
+
+        <!--
+        <h2>Future Improvements</h2>
+        <p>Describe what you plan to add or improve in this project in the future.</p>
+        -->
+
+        <h2>Project Demo</h2>
+        <a href="https://github.com/tirth05/AssociateBonus-Automation/tree/0937f23dc030bf8044f668e7066abbc48f02ecaa/associate-bonus" class="button" target="_blank">View Demo</a>
+        <a href="https://github.com/tirth05/AssociateBonus-Automation.git" class="button" target="_blank">View Source Code</a>
+
+        <div class="footer">
+            <p>Created by Tirth J | &copy; 2024</p>
+        </div>
+    </div>
+</body>
+</html>
