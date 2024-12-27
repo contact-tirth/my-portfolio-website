@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&family=Courgette&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #B5E2FA; /* Darker background color */
+            color: #EE2E31; /* Bright white text for contrast */
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #383838; /* White text color for the title */
+            margin-top: 40px;
+            font-family: 'Garamond', cursive; /* Cursive font for the title */
+        }
+        article {
+            background-color: #F9F7F3; /* Darker background for the article box */
+            margin: 30px auto;
+            padding: 30px;
+            max-width: 900px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            font-family: 'brush script';
+        }
+        h2 {
+            color: #383838; /* White text color for subheadings */
+            font-family: 'courier'; /* Cursive font for the headings */
+        }
+        p {
+            line-height: 1.8;
+            font-size: 1.1em;
+            color: #071E22; /* Lighter white text for the paragraph */
+            font-family: 'helvetica';
+        }
+        small {
+            color: #4F6367; /* Slightly lighter gray for the date */
+            font-size: 0.9em;
+            display: block;
+            margin-bottom: 15px;
+        }
+        pre {
+            background-color: #d3d3d3;
+            color: #000000;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 1em;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1><b>What is List Comprehensive in Python</b></h1>
+
+    <article>
+        <h2>What is List Comprehensive in Python</h2>
+        <small>Published on: December 27, 2024</small>
+        <p>
+            List comprehension is a concise and efficient way to create and manipulate lists in Python. It allows you to generate new lists by applying an expression to each item in an existing iterable (like a list, tuple, string, or range) and optionally filtering the items based on a condition.<br>
+        
+        </p>
+        <pre>[expression for item in iterable if condition]<br>
+
+expression: The expression that is evaluated for each item in the iterable and added to the new list.
+item: The variable representing each element in the iterable.
+iterable: The collection (like a list, range, string, etc.) that you are looping over.
+condition (optional): A conditional expression to filter which items should be included in the new list.
+        </pre>
+        <p style="font-size: 40px;"> Below are different range of examples.</p>
+        <pre><p style="font-size: 20px;"># To Print All Even Numbers</p>
+L = [i for i in range(1,11)]
+[i for i in range(1,11) if i%2 ==0]<br>
+
+Output : [2, 4, 6, 8, 10]
+        </pre>
+       
+        <pre><p style="font-size: 20px;"># Scalar multiplication on a vector</p>
+v = [2,3,4]
+s = -3
+[s*i for i in v]<br>
+
+Output : [[-6, -9, -12]]
+        </pre>
+
+        <pre><p style="font-size: 20px;"># Print all numbers divisible by 5 in the range of 1 to 50</p>
+[i for i in range(1,51) if i%5 == 0]
+
+Output : [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
+        </pre>
+        
+        <pre><p style="font-size: 20px;"># Nested if with List Comprehension</p>
+# add new list from my_fruits and items if the fruit exists in basket and also starts with 'a'
+
+basket = ['apple','guava','cherry','banana']
+my_fruits = ['apple','kiwi','grapes','banana']
+
+[i for i in my_fruits if i in basket and i.startswith('a')]
+
+Output : ['apple']
+        </pre>
+        
+        <pre><p style="font-size: 20px;"># Print a (3,3) matrix using list comprehension -> Nested List comprehension</p>
+[[i*j for i in range(1,4)] for j in range(1,4)]
+
+Output : [[1, 2, 3], [2, 4, 6], [3, 6, 9]]
+        </pre>
+        
+        <pre><p style="font-size: 20px;"># cartesian products -> List comprehension on 2 lists together</p>
+L1 = [1,2,3,4]
+L2 = [5,6,7,8]
+
+[i*j for i in L1 for j in L2]
+
+Output : [5, 6, 7, 8, 10, 12, 14, 16, 15, 18, 21, 24, 20, 24, 28, 32]
+        </pre>
+
+        <pre><p style="font-size: 20px;"># Remove vowels from a string</p>
+words = ['apple', 'banana', 'cherry']
+
+[''.join([i for i in j if i not in ('a','e','i','o','u')]) for j in words]
+
+Output : ['ppl', 'bnn', 'chrry']
+        </pre>
+
+        <pre><p style="font-size: 20px;"># Multiply elements of two lists element-wise</p>
+
+list1 = [1, 2, 3]
+list2 = [4, 5, 6]
+
+[list1[i]*list2[j] for i in range(0,len(list1)) for j in range(0,len(list2)) if i==j]
+
+Output : [4, 10, 18]
+        </pre>
+
+        <pre><p style="font-size: 20px;"># Extract digits from a string</p>
+
+words = ['abc123', 'test456', 'hello', '789']
+
+[''.join([i for i in j if i.isnumeric()])for j in words]
+
+Output : ['123', '456', '', '789']     
+        </pre>
+
+        <pre><p style="font-size: 20px;"># Write a list comprehension that can transpose a given matrix</p>
+matrix = [[1,2,3],[4,5,6],[7,8,9]]
+
+[[m[i][j] for i in range(0,len(m))] for j in range(0,len(m))]
+
+Output : [[m[i][j] for i in range(0,len(m))] for j in range(0,len(m))]
+        </pre>
+
+        <pre><p style="font-size: 20px;"># Write a list comprehension to print the following matrix [[0, 1, 2], [3, 4, 5], [6, 7, 8]]</p>
+[[i*3+j for j in range(3)] for i in range(3)]
+
+Output : [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
+        </pre>
+
+        <pre><p style="font-size: 20px;"># Convert Character Matrix to single String using string comprehension.</p>
+Input: [['c', 'a', 'm', 'p', 'u', 'x'], ['i', 's'], ['b', 'e', 's', 't'], ['c', 'h', 'a', 'n', 'n', 'e', 'l']]
+
+' '.join([''.join(i) for i in L])
+
+Output: campux is best channel    
+        </pre>
+
+        <p> 
+            <br>Advantages of List Comprehension:<br>
+            <br>
+1.) Concise: It's shorter than using traditional for loops, making your code cleaner and easier to understand.<br>
+2.) Faster Execution: In many cases, list comprehensions are faster than equivalent for loops because they are optimized internally by Python.<br>
+3.) Readability: It reduces the need for more complex loops, which improves the readability of your code.<br>
+<br>
+In summary, list comprehension is a powerful feature in Python that allows you to create and manipulate lists more efficiently and concisely, making your code both cleaner and faster.<br>
+<br>
+Happy Learning!!!! &#128512
+        </p>
+    </article>
+</body>
+</html>
